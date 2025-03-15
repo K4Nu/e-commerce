@@ -30,3 +30,13 @@ class Category(models.Model):
         indexes = [
             models.Index(fields=('parent_id',), name='category_parent_idx'),
         ]
+
+class Size(models.Model):
+    name = models.CharField(max_length=100)
+    category = models.ForeignKey("Category", on_delete=models.CASCADE, related_name='sizes')
+
+    class Meta:
+        ordering = ['name']
+        indexes = [
+            models.Index(fields=('category_id', 'name'), name='category_size'),
+        ]
